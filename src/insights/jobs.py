@@ -18,7 +18,7 @@ def read(path: str) -> List[Dict]:
         List of rows as dicts
     """
     with open(path, "r") as file:
-        reader = csv.DictReader(file)        
+        reader = csv.DictReader(file)
         data = [dict(row) for row in reader]
     return data
 
@@ -38,7 +38,9 @@ def get_unique_job_types(path: str) -> List[str]:
     list
         List of unique job types
     """
-    raise NotImplementedError
+    data = read(path)
+    job_types = list(set([row["job_type"] for row in data]))
+    return job_types
 
 
 def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
