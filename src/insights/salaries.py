@@ -18,16 +18,10 @@ def get_max_salary(path: str) -> int:
         The maximum salary paid out of all job opportunities
     """
     data = read(path)
-    max_salary = 0
-    for row in data:
-        if row["max_salary"]:
-            try:
-                salary = int(row["max_salary"])
-            except ValueError:
-                continue
-            if salary > max_salary:
-                max_salary = salary
-    return max_salary
+    salaries = [
+        int(row["max_salary"]) for row in data if row["max_salary"].isdigit()
+    ]
+    return max(salaries) if salaries else 0
 
 
 def get_min_salary(path: str) -> int:
